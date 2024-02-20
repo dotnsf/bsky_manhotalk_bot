@@ -24,7 +24,8 @@ agent.login({
 
     var resp1 = await fetch( url );
     var html = parse( await( resp1.text() ) );
-    var title = html.querySelector( "meta[property='og:description']" ).getAttribute( "content" );
+    var title = html.querySelector( "meta[property='og:title']" ).getAttribute( "content" );
+    var description = html.querySelector( "meta[property='og:description']" ).getAttribute( "content" );
     var creator = html.querySelector( "meta[name='twitter:creator']" ).getAttribute( "content" );
 
     var text = '[今日の蓋] ' + json.motd.m + '月' + json.motd.d + '日 #' + json.motd.text + ' : '
@@ -39,7 +40,7 @@ agent.login({
     var embed_params = {
       $type: "app.bsky.embed.external",
       external: {
-        uri: "https://manholemap.juge.me/",
+        uri: url, //"https://manholemap.juge.me/",
         thumb: {
           $type: "blob",
           ref: {
@@ -49,7 +50,7 @@ agent.login({
           size: response.data.blob.size
         },
         title: title,
-        description: title
+        description: description
       }
     };
 
